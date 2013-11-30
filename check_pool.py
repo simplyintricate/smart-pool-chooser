@@ -2,9 +2,12 @@
 
 import json
 import urllib
+from pycgminer import CgminerAPI
 
 LTC_TIMEOUT = 10800
 TAG_TIMEOUT = 900
+
+cgminer = CgminerAPI()
 
 tag_hash_faster_link = 'http://tag.hashfaster.com/index.php?page=api&action=gettimesincelastblock&api_key=29c14a879e901f304a82fa5b97735b7c0032638cce8e3bd54e6d9e7bf8f8e9e6&id=488'
 ltc_hash_faster_link = 'http://ltc.hashfaster.com/index.php?page=api&action=gettimesincelastblock&api_key=40a66486837fd754d275475eefcf6d4bac86e8928cc2312ac34c55cc4e824440&id=1305'
@@ -21,9 +24,8 @@ tag_time = decoded_tag['gettimesincelastblock']['data']
 ltc_time = decoded_ltc['gettimesincelastblock']
 
 if ltc_time < LTC_TIMEOUT:
-	print "choose ltc"
+        print cgminer.switchpool(0)
 elif tag_time < TAG_TIMEOUT:
-	print "choose tag"
+        print cgminer.switchpool(5)
 else:
-	print "choose hypernova"
-
+        print cgminer.switchpool(1)
